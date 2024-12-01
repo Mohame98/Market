@@ -668,6 +668,18 @@ h2 {
     }
 }
 
+.contact-noti {
+    padding: 20px;
+    background-color: rgba($color: #353839, $alpha: 0.2);
+    border: rgba($color: white, $alpha: 0.1) solid thin;
+    border-radius: 8px;
+    position: relative;
+
+    p {
+        margin-bottom: 10px;
+    }
+}
+
 // responsive\
 @media only screen and (max-width: 1250px) {
     .show {

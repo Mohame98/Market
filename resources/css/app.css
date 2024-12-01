@@ -637,6 +637,17 @@ h2 {
   margin-top: 35px;
 }
 
+.contact-noti {
+  padding: 20px;
+  background-color: rgba(53, 56, 57, 0.2);
+  border: rgba(255, 255, 255, 0.1) solid thin;
+  border-radius: 8px;
+  position: relative;
+}
+.contact-noti p {
+  margin-bottom: 10px;
+}
+
 @media only screen and (max-width: 1250px) {
   .show {
     max-width: 1100px;
