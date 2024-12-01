@@ -29,6 +29,4 @@ class Trader extends Model
     {
         return $this->hasMany(Watchlist::class, 'trader_id');
     }
-
-    
 }
