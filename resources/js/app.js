@@ -44,6 +44,36 @@ $(document).ready(function () {
     }
 });
 
+// Function to move the log into the nav container when the screen size is less than 600px
+function moveLog() {
+    const navContainer = document.querySelector('.nav-menu');
+    const logContainer = document.querySelector('.log');
+    
+    // Check if the nav container and log container exist
+    if (navContainer && logContainer) {
+        // If the screen width is less than 600px, move the log
+        if (window.innerWidth <= 600) {
+            // Move the log container inside the nav div
+            if (!navContainer.contains(logContainer)) {
+                navContainer.appendChild(logContainer);
+            }
+        } else {
+        
+            const wrapperIcon = document.querySelector('.wrapper-icon .log-container');
+            if (wrapperIcon && !wrapperIcon.contains(logContainer)) {
+                wrapperIcon.prepend(logContainer);
+            }
+        }
+    }
+}
+
+// Initial check when the page loads
+moveLog();
+
+// Add event listener to check on window resize
+window.addEventListener('resize', moveLog);
+
+
 function main() {
     const forms = document.querySelectorAll('.icon form');
     forms.forEach(form => { form.addEventListener("submit", handleSubmit) });

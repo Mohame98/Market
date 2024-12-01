@@ -30,21 +30,29 @@
                     <div class="nav">    
                         <button id="close-nav"></button>
                         <ul class="nav-menu">
-                            <li><x-nav-links href="/" :active="request()->is('/')">Home</x-nav-links></li>
-                            <li><x-nav-links href="/listings/items" :active="request()->is('listings/items')">Items</x-nav-links></li>
-                            <li><x-nav-links href="/listings/watchlist" :active="request()->is('listings/watchlist')">Watchlist</x-nav-links></li>
+                            <div class="wrapper">
+                                <li><x-nav-links href="/" :active="request()->is('/')">Home</x-nav-links></li>
+                                <li><x-nav-links href="/listings/items" :active="request()->is('listings/items')">Items</x-nav-links></li>
+                                <li><x-nav-links href="/listings/watchlist" :active="request()->is('listings/watchlist')">Watchlist</x-nav-links></li>
+                            </div>
+                            @guest
+                            <div class="log-container"></div>
+                            @endguest
                         </ul>
                     </div>
                 </div>
                 <div class="wrapper-icon">
                     @guest
+                    <div class="log-container">
                         <div class="log">
                             <x-nav-links href="/login" :active="request()->is('login')">Log In</x-nav-links>
                             <x-nav-links href="/register" :active="request()->is('register')">Sign Up</x-nav-links>
                         </div>
-                    @endguest
+                    </div>
+                    
+                   @endguest
+                    
                         @auth
-                       
                             <button popovertarget="dropdown" class="user-btn">
                                 <i class="fa-regular fa-user">
                                     <span class="hover-caption">user info</span>

@@ -196,7 +196,6 @@ h2 {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  position: relative;
 }
 .header .wrapper-icon .fa-user,
 .header .wrapper-icon .fa-sun,
@@ -278,13 +277,14 @@ h2 {
   background-color: rgba(255, 255, 255, 0.1);
 }
 .header .flex {
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
   height: 90px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 .header .nav button {
   background-image: url(../imgs/cross-white.png);
@@ -314,18 +314,30 @@ h2 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 30px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   list-style: none;
+  gap: 30px;
+  width: 100%;
+}
+.header .nav-menu .log-container {
+  display: none;
 }
 .header .wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 50px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 30px;
 }
 .header .wrapper .logo {
   font-family: "Lobster", sans-serif;
-  margin-right: 20px;
   position: relative;
 }
 .header .wrapper .logo .hover-caption {
@@ -375,6 +387,7 @@ h2 {
   text-align: center;
 }
 .search h2 {
+  margin-top: 50px;
   text-transform: capitalize;
   margin-bottom: 20px;
 }
@@ -674,6 +687,13 @@ h2 {
         -ms-flex-pack: center;
             justify-content: center;
     gap: 60px;
+  }
+  .header .nav-menu .wrapper {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 40px;
   }
   .header .nav-menu a {
     font-size: 20px;
