@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Listing;
 use App\Models\Trader;
 use App\Models\User;
-use App\Models\watchlist;
+use App\Models\Watchlist;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
