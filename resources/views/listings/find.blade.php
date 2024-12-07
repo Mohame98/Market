@@ -12,6 +12,9 @@
                     />
                 @endforeach
             </div>
+            <div class="paginator">
+                {{$listings->links()}}
+            </div>
         </div>
     </section>
 </x-layout>

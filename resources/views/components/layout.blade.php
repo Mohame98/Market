@@ -49,15 +49,12 @@
                             <x-nav-links href="/register" :active="request()->is('register')">Sign Up</x-nav-links>
                         </div>
                     </div>
-                    
                    @endguest
-                    
                         @auth
                             <button popovertarget="dropdown" class="user-btn">
                                 <i class="fa-regular fa-user">
                                     <span class="hover-caption">user info</span>
                                 </i>
-                                
                             </button>  
                             <div popover id="dropdown" class="dropdown">
                                 <div class="item">
@@ -70,7 +67,6 @@
                                     </form>
                                 </div> 
                             </div>
-                        
                         @endauth
                         <div class="mode-toggle">
                             <i class="fa-regular fa-sun">
@@ -84,6 +80,10 @@
     </section>
     
         {{$slot}}  
+
+    <footer>
+       
+    </footer>
 
     <!-- AOS js -->
     <script 

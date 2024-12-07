@@ -21,10 +21,6 @@ return new class extends Migration
             $table->text('description', 400);
             $table->string('location', 199);
             $table->timestamps();
-
-            // Optional: Indexes for better performance on frequently queried fields
-            // $table->index('title'); Index on title if it is frequently searched
-            // $table->index('location'); Index on location if it is frequently searched
         });
     }
 

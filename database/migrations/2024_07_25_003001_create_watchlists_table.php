@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('watchlists', function (Blueprint $table) {
-        $table->id();
-        $table->unsignedBigInteger('trader_id');
-        $table->unsignedBigInteger('listing_id');
-        $table->timestamps();
-        
-        $table->foreign('trader_id')->references('id')->on('traders')->onDelete('cascade');
-        $table->foreign('listing_id')->references('id')->on('listings')->onDelete('cascade');
+            $table->id();
+            $table->unsignedBigInteger('trader_id');
+            $table->unsignedBigInteger('listing_id');
+            $table->timestamps();
+            
+            $table->foreign('trader_id')->references('id')->on('traders')->onDelete('cascade');
+            $table->foreign('listing_id')->references('id')->on('listings')->onDelete('cascade');
         });
     }
 

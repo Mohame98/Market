@@ -1,40 +1,22 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Mail\ContactNoti;
-use App\Mail\ListingPosted;
 use Illuminate\Http\Request;
 use App\Models\Listing;
-use App\Models\Trader;
-use App\Models\User;
-use App\Models\Watchlist;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rules\File;
-use Illuminate\Support\Str;
+use App\Http\Controllers\Traits\ListingHelper;
 
 class ListingController extends Controller
 {
+    use ListingHelper;
+
     public function index()
     {
         $user = Auth::user();
-        $watchlist = null;
-        
-        if ($user) {
-            $traderId = $user->trader->id;  
-            $watchlist = Watchlist::where('trader_id', $traderId)->get();
-        }
-
+        $watchlist = $this->getUserWatchlist();
         $listings = Listing::with('trader')->latest()->simplePaginate(6);
-        foreach ($listings as $listing) {
-            $listing->truncatedDescription = Str::limit($listing->description, 55);
-            $listing->truncatedTitle = Str::limit($listing->title, 20);
-            $listing->trader->truncatedUsername = Str::limit($listing->trader->username, 20);
-            $listing->truncatedPrice = Str::limit($listing->price, 6);
-        }
+        $this->homeTruncateListings($listings);
     
         return view('listings.index', [
             'listings' => $listings,
@@ -50,13 +32,7 @@ class ListingController extends Controller
 
     public function show(Listing $listing)
     {
-        $user = Auth::user();
-    
-        if ($user->id == $user->trader->user_id) {
-            $traderId = $user->trader->id;
-            $watchlist = Watchlist::where('trader_id', $traderId)->get();
-        }
-
+       $watchlist = $this->getUserWatchlist();
         return view('listings.show', [
             'listing' => $listing,
             'watchlist' => $watchlist
@@ -78,17 +54,14 @@ class ListingController extends Controller
             'listing_img' => ['required','image', 'mimes:jpeg,png,jpg,webp,gif', 'max:2048'],
         ]);
 
-        // old way
-        // $imgPath = $request->listing_img->store('listing_imgs', 'public');
-        
         $imgPath = $request->file('listing_img')->store('listing_imgs', 'public');
 
-        $trader = Auth::user()->trader;
+        $trader = Auth::user()->trader->id;
 
-        $attributes['trader_id'] = $trader->id;
+        $attributes['trader_id'] = $trader;
         $attributes['listing_img'] = $imgPath;
 
-        $listing = Listing::create($attributes);
+        Listing::create($attributes);
 
         // Mail::to($listing->trader->user->email)->send(
         //     new ListingPosted($listing)
@@ -131,18 +104,13 @@ class ListingController extends Controller
         return redirect('/');
     }
 
-    public function items(Listing $listing)
+    public function items(Listing $listings)
     {
         $user = Auth::user();
-        if ($user->trader) {
-            $traderId = $user->trader->id;
-            $listings = Listing::where('trader_id', $traderId)->get();
-            foreach ($listings as $listing) {
-                $listing->truncatedTitle = Str::limit($listing->title, 20);
-                $listing->trader->truncatedUsername = Str::limit($listing->trader->username, 20);
-                $listing->truncatedPrice = Str::limit($listing->price, 6);
-            }
+        if ($user) {
+            $listings = Listing::where('trader_id', $user->trader->id)->simplePaginate(12);
+            $this->itemTruncateListings($listings);
             return view('listings.items', ['listings' => $listings]);
         }
-    }
+    } 
 }

@@ -40,7 +40,7 @@ $(document).ready(function () {
         $(".mode-toggle").html('<i class="fa-solid fa-moon"><span class="hover-caption">dark mode</span></i>');
     } else {
         document.body.classList.remove("light-mode");
-        $(".mode-toggle").html('<i class="fa-solid fa-sun"> <span class="hover-caption">light mode</span></i>');
+        $(".mode-toggle").html('<i class="fa-solid fa-sun"><span class="hover-caption">light mode</span></i>');
     }
 });
 
@@ -58,7 +58,6 @@ function moveLog() {
                 navContainer.appendChild(logContainer);
             }
         } else {
-        
             const wrapperIcon = document.querySelector('.wrapper-icon .log-container');
             if (wrapperIcon && !wrapperIcon.contains(logContainer)) {
                 wrapperIcon.prepend(logContainer);
@@ -66,11 +65,7 @@ function moveLog() {
         }
     }
 }
-
-// Initial check when the page loads
 moveLog();
-
-// Add event listener to check on window resize
 window.addEventListener('resize', moveLog);
 
 

@@ -1,15 +1,16 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Traits\ListingHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Watchlist;
 use App\Models\Listing;
-use Illuminate\Support\Str;
+
 
 class WatchlistController extends Controller
 {
+    use ListingHelper;
     public function toggleWatchlist(Request $request)
     {
         $request->validate([
@@ -44,25 +45,13 @@ class WatchlistController extends Controller
 
     public function watchListShow()
     {
-        $user = Auth::user();
-        $traderId = $user->trader->id;
+        $watchlists = $this->getUserWatchlist();
+        $listings = Listing::whereIn('id', $watchlists->pluck('listing_id'))->simplePaginate(12);
 
-        $watchlists = Watchlist::where('trader_id', $traderId)->get();
-
-        $listings = $watchlists->map(function ($watchlist) {
-            return $watchlist->listing;
-        });
-
-        foreach ($listings as $listing) {
-            $listing->truncatedTitle = Str::limit($listing->title, 20);
-            $listing->trader->truncatedUsername = Str::limit($listing->trader->username, 20);
-            $listing->truncatedPrice = Str::limit($listing->price, 6);
-        }
-
+        $this->itemTruncateListings($listings);
         return view('listings.watchlist', [
             'listings' => $listings,
             'watchlist' => $watchlists
-        ]);
-        
+        ]);  
     }
 }
