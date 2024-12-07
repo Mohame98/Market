@@ -18,11 +18,11 @@
 
             <h2>Change Profile Information</h2>
             <label for="name">First Name</label>
-            <input type="text" name="name" id="name" :value="" autocomplete="on" placeholder="Enter name" required>
+            <input type="text" name="name" id="name" :value="" autocomplete="on" placeholder="Enter name">
             <x-form-error name='name'></x-form-error>
 
             <label for="email">Email</label>
-            <input type="email" name="email" id="email" :value="" autocomplete="on" placeholder="Enter Email" required>
+            <input type="email" name="email" id="email" :value="" autocomplete="on" placeholder="Enter Email">
             <x-form-error name='email'></x-form-error>
             <button type="submit">Save</button>
         </form>
